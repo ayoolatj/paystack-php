@@ -1,0 +1,36 @@
+{
+    "name": "ayoolatj/paystack-php",
+    "description": "Yet Another Paystack PHP Library",
+    "keywords": ["paystack-php", "paystack", "transaction", "customer", "subscription"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tunji Ayoola",
+            "email": "ayoolatj@gmail.com",
+            "homepage": "https://github.com/ayoolatj"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "guzzlehttp/guzzle": "~6.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "php": ">=7.0.0",
+        "phpstan/phpstan": "^0.12.32",
+        "phpunit/phpunit": "^8.5.5",
+        "mockery/mockery": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ayoolatj\\Paystack\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "prefer-stable": true
+}

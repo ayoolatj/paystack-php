@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::all\(\)#'
+			path: src/Support/Paginator.php
+		- '#Call to an undefined method Ayoolatj\\Paystack\\Services\\[a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'
