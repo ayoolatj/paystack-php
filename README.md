@@ -1,5 +1,8 @@
 # Yet another PHP API wrapper for [Paystack](https://paystack.co/).
 
+[![Packagist][ico-version]][link-packagist]
+[![License][ico-license]](LICENSE.md)
+
 This library aims to provide convenient access to the Paystack API using predefined
 services grouped following the [Paystack API Docs](https://paystack.com/docs/api/).
 These service classes initialize defined Resources dynamically from API responses.
@@ -139,3 +142,8 @@ vendor/bin/phpunit
 - [ ] Metadata builder
 - [ ] Clean up readme
 - [ ] Non composer loader
+
+[ico-version]: https://img.shields.io/packagist/v/ayoolatj/paystack-php.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/ayoolatj/paystack-php
