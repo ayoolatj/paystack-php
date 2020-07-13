@@ -11,7 +11,7 @@ class ControlPanelService extends Service
      */
     public function paymentSessionTimeout()
     {
-        return $this->baseResource($this->request('GET', '/integration/payment_session_timeout')->getData());
+        return $this->baseResource($this->request('GET', '/integration/payment_session_timeout')->body);
     }
 
     /**
@@ -22,6 +22,6 @@ class ControlPanelService extends Service
      */
     public function updatePaymentSessionTimeout(array $data)
     {
-        return $this->baseResource($this->request('PUT', '/integration/payment_session_timeout', $data)->getData());
+        return $this->baseResource($this->request('PUT', '/integration/payment_session_timeout', $data)->body);
     }
 }

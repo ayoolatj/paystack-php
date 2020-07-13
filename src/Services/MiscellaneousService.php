@@ -12,7 +12,7 @@ class MiscellaneousService extends Service
      */
     public function banks(array $data)
     {
-        return $this->baseResource($this->request('GET', '/bank', $data)->getData());
+        return $this->baseResource($this->request('GET', '/bank', $data)->body);
     }
 
     /**
@@ -22,6 +22,6 @@ class MiscellaneousService extends Service
      */
     public function countries()
     {
-        return $this->baseResource($this->request('GET', '/country')->getData());
+        return $this->baseResource($this->request('GET', '/country')->body);
     }
 }

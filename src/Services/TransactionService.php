@@ -93,7 +93,7 @@ class TransactionService extends Service
      */
     public function timeline($idOrReference)
     {
-        return $this->baseResource($this->request('GET', "/transaction/timeline/$idOrReference")->getData());
+        return $this->baseResource($this->request('GET', "/transaction/timeline/$idOrReference")->body);
     }
 
     /**
@@ -103,7 +103,7 @@ class TransactionService extends Service
      */
     public function totals()
     {
-        return $this->baseResource($this->request('GET', '/transaction/totals')->getData());
+        return $this->baseResource($this->request('GET', '/transaction/totals')->body);
     }
 
     /**
@@ -114,7 +114,7 @@ class TransactionService extends Service
      */
     public function export(array $data)
     {
-        return $this->baseResource($this->request('GET', '/transaction/export', $data)->getData());
+        return $this->baseResource($this->request('GET', '/transaction/export', $data)->body);
     }
 
     /**

@@ -84,7 +84,7 @@ class TransferService extends Service
      */
     public function resendOtp(array $data)
     {
-        return $this->baseResource($this->request('POST', '/transfer/resend_otp', $data)->getData());
+        return $this->baseResource($this->request('POST', '/transfer/resend_otp', $data)->body);
     }
 
     /**
@@ -94,7 +94,7 @@ class TransferService extends Service
      */
     public function disableOtp()
     {
-        return $this->baseResource($this->request('POST', '/transfer/disable_otp')->getData());
+        return $this->baseResource($this->request('POST', '/transfer/disable_otp')->body);
     }
 
     /**
@@ -105,7 +105,7 @@ class TransferService extends Service
      */
     public function disableOtpFinalize(array $data)
     {
-        return $this->baseResource($this->request('POST', '/transfer/disable_otp_finalize', $data)->getData());
+        return $this->baseResource($this->request('POST', '/transfer/disable_otp_finalize', $data)->body);
     }
 
     /**
@@ -115,6 +115,6 @@ class TransferService extends Service
      */
     public function enableOtp()
     {
-        return $this->baseResource($this->request('POST', '/transfer/enable_otp')->getData());
+        return $this->baseResource($this->request('POST', '/transfer/enable_otp')->body);
     }
 }

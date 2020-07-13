@@ -30,7 +30,7 @@ class PageService extends Service
      */
     public function checkSlugAvailability($slug)
     {
-        return $this->baseResource($this->request('GET', "/page/check_slug_availability/$slug")->getData());
+        return $this->baseResource($this->request('GET', "/page/check_slug_availability/$slug")->body);
     }
 
     /**
@@ -42,6 +42,6 @@ class PageService extends Service
      */
     public function addProducts($pageId, array $data)
     {
-        return $this->baseResource($this->request('POST', "/page/$pageId/product", $data)->getData());
+        return $this->baseResource($this->request('POST', "/page/$pageId/product", $data)->body);
     }
 }

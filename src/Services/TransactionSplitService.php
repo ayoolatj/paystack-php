@@ -60,6 +60,6 @@ class TransactionSplitService extends Service
      */
     public function removeSubaccount($id, array $data)
     {
-        return $this->baseResource($this->request('POST', "/split/$id/subaccount/remove", $data)->getData());
+        return $this->baseResource($this->request('POST', "/split/$id/subaccount/remove", $data)->body);
     }
 }

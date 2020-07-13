@@ -100,6 +100,6 @@ class CustomerService extends Service
     {
         $data = ['authorization_code' => $authorizationCode];
 
-        return $this->baseResource($this->request('POST', '/transaction/deactivate_authorization', $data)->getData());
+        return $this->baseResource($this->request('POST', '/transaction/deactivate_authorization', $data)->body);
     }
 }

@@ -12,7 +12,7 @@ class VerificationService extends Service
      */
     public function bvnMatch(array $data)
     {
-        return $this->baseResource($this->request('POST', '/bvn/match', $data)->getData());
+        return $this->baseResource($this->request('POST', '/bvn/match', $data)->body);
     }
 
     /**
@@ -23,7 +23,7 @@ class VerificationService extends Service
      */
     public function resolveBvn($bvn)
     {
-        return $this->baseResource($this->request('GET', "/bank/resolve_bvn/$bvn")->getData());
+        return $this->baseResource($this->request('GET', "/bank/resolve_bvn/$bvn")->body);
     }
 
     /**
@@ -37,7 +37,7 @@ class VerificationService extends Service
     {
         $query = compact('account_number', 'bank_code');
 
-        return $this->baseResource($this->request('GET', "/bank/resolve", $query)->getData());
+        return $this->baseResource($this->request('GET', "/bank/resolve", $query)->body);
     }
 
     /**
@@ -48,6 +48,6 @@ class VerificationService extends Service
      */
     public function resolveCardBin($bin)
     {
-        return $this->baseResource($this->request('GET', "/decision/bin/$bin")->getData());
+        return $this->baseResource($this->request('GET', "/decision/bin/$bin")->body);
     }
 }

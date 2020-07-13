@@ -51,7 +51,7 @@ class DisputeService extends Service
      */
     public function addEvidence($id, array $data)
     {
-        return $this->baseResource($this->request('POST', "/dispute/$id/evidence", $data)->getData());
+        return $this->baseResource($this->request('POST', "/dispute/$id/evidence", $data)->body);
     }
 
     /**
@@ -62,7 +62,7 @@ class DisputeService extends Service
      */
     public function uploadUrl($id)
     {
-        return $this->baseResource($this->request('GET', "/dispute/$id/upload_url")->getData());
+        return $this->baseResource($this->request('GET', "/dispute/$id/upload_url")->body);
     }
 
     /**
@@ -85,6 +85,6 @@ class DisputeService extends Service
      */
     public function export(array $data = [])
     {
-        return $this->baseResource($this->request('GET', '/dispute/export', $data)->getData());
+        return $this->baseResource($this->request('GET', '/dispute/export', $data)->body);
     }
 }

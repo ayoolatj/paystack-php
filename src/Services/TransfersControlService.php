@@ -23,7 +23,7 @@ class TransfersControlService extends Service
      */
     public function checkBalance()
     {
-        return $this->baseResource($this->request('GET', '/balance')->getData());
+        return $this->baseResource($this->request('GET', '/balance')->body);
     }
 
     /**

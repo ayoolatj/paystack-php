@@ -60,7 +60,7 @@ class BulkChargeService extends Service
      */
     public function pause($batchCode)
     {
-        return $this->baseResource($this->request('GET', "/bulkcharge/pause/$batchCode")->getData());
+        return $this->baseResource($this->request('GET', "/bulkcharge/pause/$batchCode")->body);
     }
 
     /**
@@ -71,6 +71,6 @@ class BulkChargeService extends Service
      */
     public function resume($batchCode)
     {
-        return $this->baseResource($this->request('GET', "/bulkcharge/pause/$batchCode")->getData());
+        return $this->baseResource($this->request('GET', "/bulkcharge/pause/$batchCode")->body);
     }
 }

@@ -50,7 +50,7 @@ class InvoiceService extends Service
      */
     public function notify($code)
     {
-        return $this->baseResource($this->request('POST', "/paymentrequest/notify/$code")->getData());
+        return $this->baseResource($this->request('POST', "/paymentrequest/notify/$code")->body);
     }
 
     /**
@@ -60,7 +60,7 @@ class InvoiceService extends Service
      */
     public function totals()
     {
-        return $this->baseResource($this->request('POST', '/paymentrequest/totals')->getData());
+        return $this->baseResource($this->request('POST', '/paymentrequest/totals')->body);
     }
 
     /**
@@ -82,6 +82,6 @@ class InvoiceService extends Service
      */
     public function archive($code)
     {
-        return $this->baseResource($this->request('POST', "/paymentrequest/archive/$code")->getData());
+        return $this->baseResource($this->request('POST', "/paymentrequest/archive/$code")->body);
     }
 }

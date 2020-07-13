@@ -26,7 +26,7 @@ class SubscriptionService extends Service
      */
     public function enable(array $data)
     {
-        return $this->baseResource($this->request('POST', '/subscription/enable', $data)->getData());
+        return $this->baseResource($this->request('POST', '/subscription/enable', $data)->body);
     }
 
     /**
@@ -37,6 +37,6 @@ class SubscriptionService extends Service
      */
     public function disable(array $data)
     {
-        return $this->baseResource($this->request('POST', '/subscription/disable', $data)->getData());
+        return $this->baseResource($this->request('POST', '/subscription/disable', $data)->body);
     }
 }
