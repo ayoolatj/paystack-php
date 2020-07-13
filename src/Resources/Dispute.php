@@ -2,25 +2,18 @@
 
 namespace Ayoolatj\Paystack\Resources;
 
+use Ayoolatj\Paystack\Traits\Resource\UpdateResource;
+
 class Dispute extends BaseResource
 {
+    use UpdateResource;
+
     /**
      * Resource root.
      *
      * @var string
      */
     protected $root = '/dispute';
-
-    /**
-     * Update dispute.
-     *
-     * @param array $data
-     * @return \Ayoolatj\Paystack\Resources\ApiResource|Dispute
-     */
-    public function update(array $data)
-    {
-        return $this->service->update($this->id, $data);
-    }
 
     /**
      * Provide evidence for dispute.

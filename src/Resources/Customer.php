@@ -2,11 +2,17 @@
 
 namespace Ayoolatj\Paystack\Resources;
 
+use Ayoolatj\Paystack\Traits\Resource\DeleteResource;
+use Ayoolatj\Paystack\Traits\Resource\UpdateResource;
+
 /**
  * @property string $customerCode Customer's code.
  */
 class Customer extends BaseResource
 {
+    use DeleteResource;
+    use UpdateResource;
+
     /**
      * Resource root.
      *
@@ -15,34 +21,13 @@ class Customer extends BaseResource
     protected $root = '/customer';
 
     /**
-     * Update customer.
-     *
-     * @param array $data
-     * @return \Ayoolatj\Paystack\Resources\ApiResource|Customer
-     */
-    public function update(array $data)
-    {
-        return $this->service->update($this->customerCode, $data);
-    }
-
-    /**
-     * Delete customer.
-     *
-     * @return \Ayoolatj\Paystack\Resources\BaseResource
-     */
-    public function delete()
-    {
-        return $this->service->delete($this->customerCode);
-    }
-
-    /**
      * Whitelist customer.
      *
      * @return Customer
      */
     public function whitelist()
     {
-        return $this->service->whitelist($this->customerCode);
+        return $this->service->whitelist($this->id);
     }
 
     /**
@@ -52,6 +37,6 @@ class Customer extends BaseResource
      */
     public function blacklist()
     {
-        return $this->service->blacklist($this->customerCode);
+        return $this->service->blacklist($this->id);
     }
 }

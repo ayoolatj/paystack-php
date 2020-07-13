@@ -2,25 +2,18 @@
 
 namespace Ayoolatj\Paystack\Resources;
 
+use Ayoolatj\Paystack\Traits\Resource\UpdateResource;
+
 class Split extends BaseResource
 {
+    use UpdateResource;
+
     /**
      * Resource root.
      *
      * @var string
      */
     protected $root = '/split';
-
-    /**
-     * Update split.
-     *
-     * @param array $data
-     * @return \Ayoolatj\Paystack\Resources\ApiResource|Split
-     */
-    public function update(array $data)
-    {
-        return $this->service->update($this->id, $data);
-    }
 
     /**
      * Add a sub-account, or update the share of an existing sub account.

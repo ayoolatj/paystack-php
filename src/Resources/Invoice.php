@@ -2,8 +2,12 @@
 
 namespace Ayoolatj\Paystack\Resources;
 
+use Ayoolatj\Paystack\Traits\Resource\UpdateResource;
+
 class Invoice extends BaseResource
 {
+    use UpdateResource;
+
     /**
      * Resource root.
      *
@@ -29,17 +33,6 @@ class Invoice extends BaseResource
     public function notify()
     {
         return $this->service->notify($this->id);
-    }
-
-    /**
-     * Update invoice.
-     *
-     * @param array $data
-     * @return \Ayoolatj\Paystack\Resources\ApiResource|Invoice
-     */
-    public function update(array $data)
-    {
-        return $this->service->update($this->id, $data);
     }
 
     /**
