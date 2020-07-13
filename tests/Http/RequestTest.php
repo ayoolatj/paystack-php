@@ -15,42 +15,29 @@ class RequestTest extends TestCase
      */
     private $requestObject;
 
-    /**
-     * @var string
-     */
-    private $uri;
-
-    /**
-     * @var \GuzzleHttp\Client|\Mockery\LegacyMockInterface|\Mockery\MockInterface
-     */
-    private $client;
-
     public function setUp(): void
     {
-        $this->client = Mockery::mock('GuzzleHttp\Client');
+        $client = Mockery::mock('GuzzleHttp\Client');
         $apiBase = 'https://api.paystack.co';
-        $this->uri = $apiBase . '/plans';
+        $uri = $apiBase . '/plans';
 
-        $this->requestObject = new Request('sk_', $apiBase, $this->client);
+        $this->requestObject = new Request('sk_', $apiBase, $client);
+        $requestOptions = $this->requestObject->buildRequestOptions('GET', []);
+        $client->shouldReceive('request')->once()->with('GET', $uri, $requestOptions)->andReturn(
+            $response = Mockery::mock('GuzzleHttp\Psr7\Response')
+        );
+        $response->shouldReceive('getHeaders')->zeroOrMoreTimes()->andReturn([]);
+        $response->shouldReceive('getBody')->zeroOrMoreTimes()->andReturn(
+            '{"status":true,"message":"a","data":{"a":"b"}}'
+        );
+
+        $this->response = $response;
     }
 
     public function request($code)
     {
-        $requestOptions = $this->requestObject->buildRequestOptions('GET', []);
-        $this->client->shouldReceive('request')->once()->with('GET', $this->uri, $requestOptions)->andReturn(
-            $response = Mockery::mock('GuzzleHttp\Psr7\Response')
-        );
-
-        $b = '{"status":true,"message":"a","data":{"a":"b"}}';
-        $h = [];
-
-        $response->shouldReceive('getStatusCode')->zeroOrMoreTimes()->andReturn($code);
-        $response->shouldReceive('getHeaders')->zeroOrMoreTimes()->andReturn($h);
-        $response->shouldReceive('getBody')->zeroOrMoreTimes()->andReturn($b);
-
+        $this->response->shouldReceive('getStatusCode')->once()->andReturn($code);
         $this->requestObject->request('GET', '/plans', []);
-
-        return compact('b', 'code', 'h');
     }
 
     public function tearDown(): void
@@ -63,6 +50,7 @@ class RequestTest extends TestCase
         $this->request(200);
 
         $this->assertInstanceOf(Request::class, $this->requestObject);
+        $this->assertSame(200, $this->requestObject->getResponse()->code);
     }
 
     public function testApiExceptionOnInvalidResponse()
@@ -84,10 +72,12 @@ class RequestTest extends TestCase
 
     public function testGetResponse()
     {
-        $request = $this->request(200);
-        $request = array_values($request);
+        $this->request(200);
+
+        $b = '{"status":true,"message":"a","data":{"a":"b"}}';
+        $h = [];
 
         $this->assertInstanceOf(Response::class, $this->requestObject->getResponse());
-        $this->assertEquals(new Response(...$request), $this->requestObject->getResponse());
+        $this->assertEquals(new Response($b, 200, $h), $this->requestObject->getResponse());
     }
 }
