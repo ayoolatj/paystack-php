@@ -35,6 +35,9 @@ class PaginatorTest extends TestCase
             'page' => '1',
             'pageCount' => '2',
         ];
+        $this->s->shouldReceive('all')->zeroOrMoreTimes()->andReturn(
+            new Paginator(['3'], array_merge($this->meta, ['page' => '2']), $this->s)
+        );
     }
 
     public function tearDown(): void
@@ -88,6 +91,22 @@ class PaginatorTest extends TestCase
         $this->assertInstanceOf(ArrayIterator::class, $p->getIterator());
     }
 
+    public function testArrayable()
+    {
+        $p = new Paginator(['foo', 'bar'], $this->meta, $this->s);
+
+        $this->assertSame(
+            [
+                'data' => ['foo', 'bar'],
+                'page' => '1',
+                'perPage' => '2',
+                'total' => '3',
+                'pageCount' => '2',
+            ],
+            $p->toArray()
+        );
+    }
+
     public function testJsonSerialize()
     {
         $p = new Paginator(['foo', 'bar'], $this->meta, $this->s);
@@ -108,10 +127,6 @@ class PaginatorTest extends TestCase
     {
         $p = new Paginator(['1', '2'], $this->meta, $this->s);
 
-        $this->s->shouldReceive('all')->once()->andReturn(
-            new Paginator(['3'], array_merge($this->meta, ['page' => '2']), $this->s)
-        );
-
         $items = [];
 
         foreach ($p->autoPagingIterator() as $item) {
@@ -125,10 +140,6 @@ class PaginatorTest extends TestCase
     {
         $p = new Paginator(['1', '2'], $this->meta, $this->s);
 
-        $this->s->shouldReceive('all')->once()->andReturn(
-            new Paginator(['3'], array_merge($this->meta, ['page' => '2']), $this->s)
-        );
-
         $items = [];
 
         foreach (iterator_to_array($p->autoPagingIterator()) as $item) {
@@ -141,10 +152,6 @@ class PaginatorTest extends TestCase
     public function testNextPage()
     {
         $p = new Paginator(['1', '2'], $this->meta, $this->s);
-
-        $this->s->shouldReceive('all')->once()->andReturn(
-            new Paginator(['3'], array_merge($this->meta, ['page' => '2']), $this->s)
-        );
 
         $nextPage = $p->nextPage();
 
