@@ -50,7 +50,7 @@ abstract class Service
         $this->apiRequest = new Request($this->paystack->secretKey, $this->paystack->apiBase, $this->paystack->client);
 
         if (! empty($this->primaryResource)) {
-            $this->primaryResourceRoot = (new $this->primaryResource)->getRoot();
+            $this->primaryResourceRoot = (new $this->primaryResource([], $this))->getRoot();
         }
     }
 
@@ -130,7 +130,7 @@ abstract class Service
     {
         return array_map(
             function ($data) use ($class) {
-                return empty($class) ? $data : (new $class($data))->setService($this);
+                return empty($class) ? $data : new $class($data, $this);
             },
             $response->getData()
         );
@@ -171,9 +171,6 @@ abstract class Service
      */
     public function baseResource(array $attributes)
     {
-        $resource = new BaseResource($attributes);
-        $resource->setService($this);
-
-        return $resource;
+        return new BaseResource($attributes, $this);
     }
 }

@@ -24,7 +24,7 @@ class BulkChargeService extends Service
      */
     protected function bulkChargeResource(array $attributes)
     {
-        return (new BulkCharge($attributes))->setService($this);
+        return new BulkCharge($attributes, $this);
     }
 
     /**

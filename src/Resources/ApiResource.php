@@ -41,10 +41,12 @@ abstract class ApiResource implements Arrayable, ArrayAccess
      * API Resource Constructor.
      *
      * @param array $attributes
+     * @param \Ayoolatj\Paystack\Services\Service $service
      */
-    public function __construct(array $attributes = [])
+    public function __construct(array $attributes, Service $service)
     {
         $this->attributes = $attributes;
+        $this->service = $service;
         $this->fill();
     }
 
@@ -142,13 +144,5 @@ abstract class ApiResource implements Arrayable, ArrayAccess
     public function toArray()
     {
         return $this->attributes;
-    }
-
-    /**
-     * @param \Ayoolatj\Paystack\Services\Service $service
-     */
-    public function setService(Service $service): void
-    {
-        $this->service = $service;
     }
 }

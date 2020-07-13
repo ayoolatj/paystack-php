@@ -28,7 +28,7 @@ class InvoiceService extends Service
      */
     public function invoiceResource(array $attributes)
     {
-        return (new Invoice($attributes))->setService($this);
+        return new Invoice($attributes, $this);
     }
 
     /**

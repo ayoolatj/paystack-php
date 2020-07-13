@@ -26,7 +26,7 @@ class DisputeService extends Service
      */
     protected function disputeResource(array $attributes)
     {
-        return (new Dispute($attributes))->setService($this);
+        return new Dispute($attributes, $this);
     }
 
     /**

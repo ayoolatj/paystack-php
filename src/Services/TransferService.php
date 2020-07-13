@@ -22,7 +22,7 @@ class TransferService extends Service
      */
     public function transferResource(array $attributes)
     {
-        return (new Transfer($attributes))->setService($this);
+        return new Transfer($attributes, $this);
     }
 
     /**

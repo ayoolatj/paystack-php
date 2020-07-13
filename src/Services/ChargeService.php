@@ -14,7 +14,7 @@ class ChargeService extends Service
      */
     protected function chargeResource(array $attributes)
     {
-        return (new Charge($attributes))->setService($this);
+        return new Charge($attributes, $this);
     }
 
     /**

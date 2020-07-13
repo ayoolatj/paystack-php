@@ -32,7 +32,7 @@ class TransactionSplitService extends Service
      */
     public function splitResource(array $attributes)
     {
-        return (new Split($attributes))->setService($this);
+        return new Split($attributes, $this);
     }
 
     /**

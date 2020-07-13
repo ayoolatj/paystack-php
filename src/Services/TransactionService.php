@@ -28,7 +28,7 @@ class TransactionService extends Service
      */
     protected function transactionResource(array $attributes)
     {
-        return (new Transaction($attributes))->setService($this);
+        return new Transaction($attributes, $this);
     }
 
     /**

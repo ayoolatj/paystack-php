@@ -209,12 +209,4 @@ class Paginator implements ArrayAccess, Countable, IteratorAggregate, JsonSerial
 
         return $this->service->all($query);
     }
-
-    /**
-     * @param \Ayoolatj\Paystack\Services\Service $service
-     */
-    public function setService(Service $service): void
-    {
-        $this->service = $service;
-    }
 }

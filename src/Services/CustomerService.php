@@ -42,7 +42,7 @@ class CustomerService extends Service
      */
     public function customerResource(array $attributes)
     {
-        return (new Customer($attributes))->setService($this);
+        return new Customer($attributes, $this);
     }
 
     /**
