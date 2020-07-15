@@ -2,7 +2,6 @@
 
 namespace Tests\Resources;
 
-use Ayoolatj\Paystack\Resources\BaseResource;
 use Ayoolatj\Paystack\Resources\Transfer;
 use Ayoolatj\Paystack\Services\Service;
 use Mockery;
