@@ -9,7 +9,7 @@ These service classes initialize defined Resources dynamically from API response
 
 ## Requirements
 
-- PHP 7.2+
+- PHP 7.1+
 
 ## Installing
 

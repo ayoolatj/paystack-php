@@ -12,12 +12,11 @@
         }
     ],
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.1.0",
         "guzzlehttp/guzzle": "~6.0",
         "ext-json": "*"
     },
     "require-dev": {
-        "php": ">=7.0.0",
         "phpstan/phpstan": "^0.12.32",
         "phpunit/phpunit": "^8.5.5",
         "mockery/mockery": "^1.4"
