@@ -188,7 +188,7 @@ class Paginator implements ArrayAccess, Countable, IteratorAggregate, JsonSerial
                 yield $item;
             }
 
-            if ($page->page === $page->pageCount) {
+            if ($page->page >= $page->pageCount) {
                 break;
             }
 
