@@ -28,6 +28,7 @@ class TransferRecipientTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new TransferRecipient(['id' => 10], $s);
 
@@ -44,13 +45,9 @@ class TransferRecipientTest extends TestCase
 
     public function transferRecipientProvider()
     {
-        $q = [];
-        $r = Mockery::mock(TransferRecipient::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['delete', $bR],
+            ['update', TransferRecipient::class, []],
+            ['delete', BaseResource::class],
         ];
     }
 }

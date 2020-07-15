@@ -28,6 +28,7 @@ class ProductTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new Product(['id' => 10], $s);
 
@@ -44,13 +45,9 @@ class ProductTest extends TestCase
 
     public function productProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Product::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['delete', $bR],
+            ['update', Product::class, []],
+            ['delete', BaseResource::class],
         ];
     }
 }

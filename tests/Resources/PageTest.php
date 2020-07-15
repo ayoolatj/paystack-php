@@ -28,6 +28,7 @@ class PageTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new Page(['id' => 10], $s);
 
@@ -44,14 +45,10 @@ class PageTest extends TestCase
 
     public function pageProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Page::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['delete', $bR],
-            ['addProducts', $bR, $q],
+            ['update', Page::class, []],
+            ['delete', BaseResource::class],
+            ['addProducts', BaseResource::class, []],
         ];
     }
 }

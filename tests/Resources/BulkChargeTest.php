@@ -29,6 +29,7 @@ class BulkChargeTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $b = new BulkCharge(['batch_code' => 10], $s);
 
@@ -45,13 +46,10 @@ class BulkChargeTest extends TestCase
 
     public function bulkChargeProvider()
     {
-        $q = [];
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['pause', $bR],
-            ['fetchCharges', Mockery::mock(Paginator::class), $q],
-            ['resume', $bR]
+            ['pause', BaseResource::class],
+            ['fetchCharges', Paginator::class, []],
+            ['resume', BaseResource::class]
         ];
     }
 }

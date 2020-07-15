@@ -27,6 +27,7 @@ class ChargeTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $c = new Charge(['reference' => 10], $s);
 
@@ -40,15 +41,12 @@ class ChargeTest extends TestCase
 
     public function chargeProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Charge::class);
-
         return [
-            ['submitPin', $r, $q],
-            ['submitOtp', $r, $q],
-            ['submitPhone', $r, $q],
-            ['submitBirthday', $r, $q],
-            ['submitAddress', $r, $q]
+            ['submitPin', Charge::class, []],
+            ['submitOtp', Charge::class, []],
+            ['submitPhone', Charge::class, []],
+            ['submitBirthday', Charge::class, []],
+            ['submitAddress', Charge::class, []]
         ];
     }
 }

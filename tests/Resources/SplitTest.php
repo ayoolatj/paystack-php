@@ -28,6 +28,7 @@ class SplitTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $split = new Split(['id' => 10], $s);
 
@@ -44,14 +45,10 @@ class SplitTest extends TestCase
 
     public function splitProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Split::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['addOrUpdateSubaccount', $r, $q],
-            ['removeSubaccount', $bR, 20],
+            ['update', Split::class, []],
+            ['addOrUpdateSubaccount', Split::class, []],
+            ['removeSubaccount', BaseResource::class, 20],
         ];
     }
 }

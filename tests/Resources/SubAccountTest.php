@@ -28,6 +28,7 @@ class SubAccountTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new SubAccount(['id' => 10], $s);
 
@@ -44,13 +45,9 @@ class SubAccountTest extends TestCase
 
     public function subAccountProvider()
     {
-        $q = [];
-        $r = Mockery::mock(SubAccount::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['delete', $bR],
+            ['update', SubAccount::class, []],
+            ['delete', BaseResource::class],
         ];
     }
 }

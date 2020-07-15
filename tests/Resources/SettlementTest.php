@@ -28,6 +28,7 @@ class SettlementTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $settlement = new Settlement(['id' => 10], $s);
 
@@ -40,11 +41,8 @@ class SettlementTest extends TestCase
 
     public function settlementProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Paginator::class);
-
         return [
-            ['transactions', $r, $q],
+            ['transactions', Paginator::class, []],
         ];
     }
 }

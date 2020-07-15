@@ -28,6 +28,7 @@ class TransactionTest extends TestCase
      */
     public function testResourceMethods($method, $response)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new Transaction(['id' => 10], $s);
 
@@ -41,13 +42,10 @@ class TransactionTest extends TestCase
 
     public function transactionProvider()
     {
-        $bR = Mockery::mock(BaseResource::class);
-        $r = Mockery::mock(Transaction::class);
-
         return [
-            ['verify', $r],
-            ['timeline', $bR],
-            ['listDisputes', $bR],
+            ['verify', Transaction::class],
+            ['timeline', BaseResource::class],
+            ['listDisputes', BaseResource::class],
         ];
     }
 }

@@ -28,6 +28,7 @@ class SubscriptionTest extends TestCase
      */
     public function testResourceMethods($method, $response)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $attributes = [
             'subscription_code' => '10',
@@ -44,11 +45,9 @@ class SubscriptionTest extends TestCase
 
     public function subscriptionProvider()
     {
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['enable', $bR],
-            ['disable', $bR],
+            ['enable', BaseResource::class],
+            ['disable', BaseResource::class],
         ];
     }
 }

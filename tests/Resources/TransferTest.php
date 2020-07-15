@@ -28,6 +28,7 @@ class TransferTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new Transfer(['transfer_code' => 10], $s);
 
@@ -45,11 +46,9 @@ class TransferTest extends TestCase
 
     public function transferProvider()
     {
-        $r = Mockery::mock(Transfer::class);
-
         return [
-            ['finalize', $r, '1234'],
-            ['verify', $r],
+            ['finalize', Transfer::class, '1234'],
+            ['verify', Transfer::class],
         ];
     }
 }

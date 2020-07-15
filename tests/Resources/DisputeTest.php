@@ -28,6 +28,7 @@ class DisputeTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $d = new Dispute(['id' => 10], $s);
 
@@ -44,15 +45,11 @@ class DisputeTest extends TestCase
 
     public function disputeProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Dispute::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['addEvidence', $bR, $q],
-            ['uploadUrl', $bR],
-            ['resolve', $r, $q],
+            ['update', Dispute::class, []],
+            ['addEvidence', BaseResource::class, []],
+            ['uploadUrl', BaseResource::class],
+            ['resolve', Dispute::class, []],
         ];
     }
 }

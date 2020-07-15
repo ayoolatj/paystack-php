@@ -28,6 +28,7 @@ class CustomerTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $c = new Customer(['id' => 10], $s);
 
@@ -44,14 +45,11 @@ class CustomerTest extends TestCase
 
     public function customerProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Customer::class);
-
         return [
-            ['update', $r, $q],
-            ['delete', Mockery::mock(BaseResource::class)],
-            ['whitelist', $r],
-            ['blacklist', $r],
+            ['update', Customer::class, []],
+            ['delete', BaseResource::class],
+            ['whitelist', Customer::class],
+            ['blacklist', Customer::class],
         ];
     }
 }

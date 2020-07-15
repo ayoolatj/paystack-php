@@ -28,6 +28,7 @@ class PlanTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $p = new Plan(['id' => 10], $s);
 
@@ -44,13 +45,9 @@ class PlanTest extends TestCase
 
     public function planProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Plan::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['update', $r, $q],
-            ['delete', $bR],
+            ['update', Plan::class, []],
+            ['delete', BaseResource::class],
         ];
     }
 }

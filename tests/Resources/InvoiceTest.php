@@ -28,6 +28,7 @@ class InvoiceTest extends TestCase
      */
     public function testResourceMethods($method, $response, $query = null)
     {
+        $response = Mockery::mock($response);
         $s = Mockery::mock(Service::class);
         $i = new Invoice(['id' => 10], $s);
 
@@ -44,16 +45,12 @@ class InvoiceTest extends TestCase
 
     public function disputeProvider()
     {
-        $q = [];
-        $r = Mockery::mock(Invoice::class);
-        $bR = Mockery::mock(BaseResource::class);
-
         return [
-            ['verify', $r],
-            ['notify', $bR],
-            ['update', $r, $q],
-            ['finalize', $r],
-            ['archive', $bR],
+            ['verify', Invoice::class],
+            ['notify', BaseResource::class],
+            ['update', Invoice::class, []],
+            ['finalize', Invoice::class],
+            ['archive', BaseResource::class],
         ];
     }
 }
