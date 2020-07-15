@@ -5,7 +5,6 @@ namespace Ayoolatj\Paystack\Support;
 use ArrayAccess;
 use ArrayIterator;
 use Ayoolatj\Paystack\Contracts\Arrayable;
-use Ayoolatj\Paystack\Services\Service;
 use Ayoolatj\Paystack\Traits\HasService;
 use Countable;
 use IteratorAggregate;

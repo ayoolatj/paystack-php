@@ -2,8 +2,6 @@
 
 namespace Ayoolatj\Paystack\Http;
 
-use Psr\Http\Message\ResponseInterface;
-
 class Response
 {
     /**
