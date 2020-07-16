@@ -3,7 +3,6 @@
 namespace Ayoolatj\Paystack\Http;
 
 use Ayoolatj\Paystack\Exceptions\ApiException;
-use GuzzleHttp\Client as Http;
 
 class Request
 {
@@ -22,7 +21,7 @@ class Request
     protected $apiBase;
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var \Ayoolatj\Paystack\Contracts\ClientInterface
      */
     protected $client;
 
@@ -33,22 +32,21 @@ class Request
 
     /**
      * @var \Ayoolatj\Paystack\Http\Response
-    */
+     */
     protected $response;
 
     /**
      * Request constructor.
      *
-     * @param string                  $secretKey
-     * @param string                  $apiBase
-     * @param null|\GuzzleHttp\Client $client
+     * @param string                                            $secretKey
+     * @param string                                            $apiBase
+     * @param \Ayoolatj\Paystack\Contracts\ClientInterface|null $client
      */
     public function __construct($secretKey, $apiBase, $client = null)
     {
         $this->secretKey = $secretKey;
         $this->apiBase = $apiBase;
-
-        $this->client = $client ?: new Http();
+        $this->client = $client ?: new GuzzleClient();
     }
 
     /**
@@ -64,13 +62,17 @@ class Request
     public function request($verb, $uri, array $params = [])
     {
         $request = compact('verb', 'uri', 'params');
-        $response = $this->client->request(
+        [$rawBody, $statusCode, $headers] = $this->client->handleRequest(
             $verb,
-            $this->buildRequestUri($uri),
-            $this->buildRequestOptions($verb, $params)
+            $this->apiBase . $uri,
+            $params,
+            [
+                'Authorization' => 'Bearer '.$this->secretKey,
+                'Content-Type' => 'application/json',
+            ]
         );
 
-        $response = new Response($response->getBody(), $response->getStatusCode(), $response->getHeaders());
+        $response = new Response($rawBody, $statusCode, $headers);
 
         if ($response->code < 200 || $response->code >= 300 || ! $response->getStatus()) {
             throw new ApiException($response, $request);
@@ -80,41 +82,6 @@ class Request
         $this->setResponse($response);
 
         return $this;
-    }
-
-    /**
-     * Build request uri.
-     *
-     * @param string $uri
-     *
-     * @return string
-     */
-    private function buildRequestUri($uri)
-    {
-        return $this->apiBase . $uri;
-    }
-
-    /**
-     * Build request options.
-     *
-     * @param string $verb
-     * @param array  $params
-     *
-     * @return array
-     */
-    public function buildRequestOptions($verb, array $params = [])
-    {
-        $default_options = [
-            'http_errors' => false,
-            'headers' => [
-                'Authorization' => 'Bearer '.$this->secretKey,
-                'Accept' => 'application/json',
-            ],
-        ];
-        $key = ('get' === strtolower($verb)) ? 'query' : 'form_params';
-        $query_options = empty($params) ? [] : [$key => $params];
-
-        return array_merge($default_options, $query_options);
     }
 
     /**

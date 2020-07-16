@@ -44,9 +44,9 @@ class Paystack
     public $apiBase = 'https://api.paystack.co';
 
     /**
-     * The Guzzle HTTP Client instance.
+     * HTTP Client.
      *
-     * @var \GuzzleHttp\Client
+     * @var \Ayoolatj\Paystack\Contracts\ClientInterface
      */
     public $client;
 
@@ -58,8 +58,8 @@ class Paystack
     /**
      * Paystack constructor.
      *
-     * @param string                  $secretKey
-     * @param null|\GuzzleHttp\Client $client
+     * @param string                                            $secretKey
+     * @param \Ayoolatj\Paystack\Contracts\ClientInterface|null $client
      */
     public function __construct($secretKey, $client = null)
     {

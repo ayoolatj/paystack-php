@@ -2,6 +2,7 @@
 
 namespace Tests\Http;
 
+use Ayoolatj\Paystack\Contracts\ClientInterface;
 use Ayoolatj\Paystack\Exceptions\ApiException;
 use Ayoolatj\Paystack\Http\Request;
 use Ayoolatj\Paystack\Http\Response;
@@ -15,28 +16,29 @@ class RequestTest extends TestCase
      */
     private $requestObject;
 
+    /**
+     * @var \Ayoolatj\Paystack\Contracts\ClientInterface
+     */
+    private $client;
+
     public function setUp(): void
     {
-        $client = Mockery::mock('GuzzleHttp\Client');
         $apiBase = 'https://api.paystack.co';
-        $uri = $apiBase . '/plans';
-
-        $this->requestObject = new Request('sk_', $apiBase, $client);
-        $requestOptions = $this->requestObject->buildRequestOptions('GET', []);
-        $client->shouldReceive('request')->once()->with('GET', $uri, $requestOptions)->andReturn(
-            $response = Mockery::mock('GuzzleHttp\Psr7\Response')
-        );
-        $response->shouldReceive('getHeaders')->zeroOrMoreTimes()->andReturn([]);
-        $response->shouldReceive('getBody')->zeroOrMoreTimes()->andReturn(
-            '{"status":true,"message":"a","data":{"a":"b"}}'
-        );
-
-        $this->response = $response;
+        $this->client = new class implements ClientInterface {
+            /**
+             * @inheritDoc
+             */
+            public function handleRequest($verb, $absUri, $params = [], $headers = [])
+            {
+                return ['{"status":true,"message":"a","data":{"a":"b"}}', $this->code, []];
+            }
+        };
+        $this->requestObject = new Request('sk_', $apiBase, $this->client);
     }
 
     public function request($code)
     {
-        $this->response->shouldReceive('getStatusCode')->once()->andReturn($code);
+        $this->client->code = $code;
         $this->requestObject->request('GET', '/plans', []);
     }
 
