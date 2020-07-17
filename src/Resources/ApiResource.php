@@ -145,4 +145,14 @@ abstract class ApiResource implements Arrayable, ArrayAccess
     {
         return $this->attributes;
     }
+
+    public function __sleep()
+    {
+        return ['root', 'attributes', 'service'];
+    }
+
+    public function __wakeup()
+    {
+        $this->fill();
+    }
 }

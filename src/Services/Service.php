@@ -208,4 +208,14 @@ abstract class Service
     {
         return new BaseResource($attributes, $this);
     }
+
+    public function __sleep()
+    {
+        return ['paystack'];
+    }
+
+    public function __wakeup()
+    {
+        $this->setApiRequestor($this->getApiRequestor());
+    }
 }

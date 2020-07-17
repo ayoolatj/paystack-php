@@ -88,4 +88,9 @@ class Paystack
 
         return $this->serviceFactory->$name;
     }
+
+    public function __sleep()
+    {
+        return array('secretKey');
+    }
 }
