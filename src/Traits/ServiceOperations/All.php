@@ -13,7 +13,7 @@ trait All
     public function all(array $query = [])
     {
         return $this->paginate(
-            $this->listResources($this->primaryResourceRoot, $query),
+            $this->listResources($this->getPrimaryResourceRoot(), $query),
             $this->primaryResource
         );
     }

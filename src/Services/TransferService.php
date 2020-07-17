@@ -34,7 +34,7 @@ class TransferService extends Service
      */
     public function initiate(array $data)
     {
-        return $this->transferResource($this->request('POST', $this->primaryResourceRoot, $data)->getData());
+        return $this->transferResource($this->request('POST', $this->getPrimaryResourceRoot(), $data)->getData());
     }
 
     /**

@@ -14,7 +14,7 @@ trait Update
      */
     public function update($resourceCodeOrId, array $data)
     {
-        $this->request('PUT', "{$this->primaryResourceRoot}/$resourceCodeOrId", $data);
+        $this->request('PUT', "{$this->getPrimaryResourceRoot()}/$resourceCodeOrId", $data);
 
         return $this->fetch($resourceCodeOrId);
     }

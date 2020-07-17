@@ -13,7 +13,7 @@ trait Fetch
      */
     public function fetch($resourceCode)
     {
-        $attributes = $this->request('GET', "{$this->primaryResourceRoot}/$resourceCode")->getData();
+        $attributes = $this->request('GET', "{$this->getPrimaryResourceRoot()}/$resourceCode")->getData();
 
         return new $this->primaryResource($attributes, $this->paystack);
     }

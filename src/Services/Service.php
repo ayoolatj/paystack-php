@@ -119,6 +119,20 @@ abstract class Service
     }
 
     /**
+     * Get root path for service's primary resource.
+     *
+     * @return string
+     */
+    public function getPrimaryResourceRoot()
+    {
+        if (! empty($this->primaryResource)) {
+            $this->primaryResourceRoot = (new $this->primaryResource([], $this))->getRoot();
+        }
+
+        return $this->primaryResourceRoot;
+    }
+
+    /**
      * Transform the items of the collection to the given class.
      *
      * @param \Ayoolatj\Paystack\Http\Response $response

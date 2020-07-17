@@ -13,6 +13,6 @@ trait Delete
      */
     public function delete($resourceCode)
     {
-        return $this->request('DELETE', "{$this->primaryResourceRoot}/$resourceCode");
+        return $this->request('DELETE', "{$this->getPrimaryResourceRoot()}/$resourceCode");
     }
 }

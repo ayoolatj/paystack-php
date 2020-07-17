@@ -13,7 +13,7 @@ trait Create
      */
     public function create(array $data)
     {
-        $attributes = $this->request('POST', $this->primaryResourceRoot, $data)->getData();
+        $attributes = $this->request('POST', $this->getPrimaryResourceRoot(), $data)->getData();
 
         return new $this->primaryResource($attributes, $this->paystack);
     }
