@@ -27,7 +27,7 @@ abstract class Service
     /**
      * @var \Ayoolatj\Paystack\Http\Request
      */
-    protected $apiRequest;
+    protected $apiRequestor;
 
     /**
      * @var string
@@ -47,11 +47,7 @@ abstract class Service
     public function __construct($paystack)
     {
         $this->paystack = $paystack;
-        $this->apiRequest = new Request($this->paystack->secretKey, $this->paystack->apiBase, $this->paystack->client);
-
-        if (! empty($this->primaryResource)) {
-            $this->primaryResourceRoot = (new $this->primaryResource([], $this))->getRoot();
-        }
+        $this->setApiRequestor($this->getApiRequestor());
     }
 
     /**
@@ -65,7 +61,7 @@ abstract class Service
      */
     protected function request($verb, $uri, array $params = [])
     {
-        $request = $this->apiRequest->request($verb, $uri, $params);
+        $request = $this->getApiRequestor()->request($verb, $uri, $params);
         $response = $request->getResponse();
 
         $this->setLastResponse($response);
@@ -130,6 +126,31 @@ abstract class Service
         }
 
         return $this->primaryResourceRoot;
+    }
+
+    /**
+     * Get api requestor.
+     *
+     * @return \Ayoolatj\Paystack\Http\Request
+     */
+    public function getApiRequestor(): Request
+    {
+        return $this->apiRequestor ??
+            new Request(
+                $this->paystack->secretKey,
+                $this->paystack->apiBase,
+                $this->paystack->client
+            );
+    }
+
+    /**
+     * Set api requestor.
+     *
+     * @param \Ayoolatj\Paystack\Http\Request $apiRequestor
+     */
+    public function setApiRequestor(Request $apiRequestor): void
+    {
+        $this->apiRequestor = $apiRequestor;
     }
 
     /**
