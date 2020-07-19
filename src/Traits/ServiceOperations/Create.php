@@ -15,6 +15,6 @@ trait Create
     {
         $attributes = $this->request('POST', $this->getPrimaryResourceRoot(), $data)->getData();
 
-        return new $this->primaryResource($attributes, $this->paystack);
+        return new $this->primaryResource($attributes, $this);
     }
 }

@@ -15,6 +15,6 @@ trait Fetch
     {
         $attributes = $this->request('GET', "{$this->getPrimaryResourceRoot()}/$resourceCode")->getData();
 
-        return new $this->primaryResource($attributes, $this->paystack);
+        return new $this->primaryResource($attributes, $this);
     }
 }
